@@ -1,0 +1,89 @@
+{
+  "runAt": "2026-10-08T15:36:02.746Z",
+  "node": "v24.19.0",
+  "os": "win32",
+  "durationSeconds": 10,
+  "scope": "Local smoke load: real MQTT, SQLite on disk, 1 sample/s/device. Not a clinical or capacity certification. Latency is measurement timestamp to ingestion start, not commit/UI latency. RSS includes prior runs in the same process.",
+  "results": [
+    {
+      "devices": 6,
+      "targetSamples": 60,
+      "generated": 60,
+      "published": 60,
+      "publishErrors": 0,
+      "received": 60,
+      "missing": 0,
+      "elapsedSeconds": 10.34,
+      "receivedPerSecond": 5.81,
+      "measurementToReceiveMs": {
+        "p50": 90,
+        "p95": 315,
+        "max": 333
+      },
+      "historyQueryMs": 1.65,
+      "cpuMs": 422,
+      "processRssMB": 65.8,
+      "sqliteBytes": 528384
+    },
+    {
+      "devices": 10,
+      "targetSamples": 100,
+      "generated": 100,
+      "published": 100,
+      "publishErrors": 0,
+      "received": 100,
+      "missing": 0,
+      "elapsedSeconds": 10.28,
+      "receivedPerSecond": 9.73,
+      "measurementToReceiveMs": {
+        "p50": 26,
+        "p95": 64,
+        "max": 82
+      },
+      "historyQueryMs": 1.03,
+      "cpuMs": 344,
+      "processRssMB": 69.6,
+      "sqliteBytes": 757760
+    },
+    {
+      "devices": 20,
+      "targetSamples": 200,
+      "generated": 200,
+      "published": 200,
+      "publishErrors": 0,
+      "received": 200,
+      "missing": 0,
+      "elapsedSeconds": 10.28,
+      "receivedPerSecond": 19.46,
+      "measurementToReceiveMs": {
+        "p50": 48,
+        "p95": 192,
+        "max": 249
+      },
+      "historyQueryMs": 1.23,
+      "cpuMs": 969,
+      "processRssMB": 75.9,
+      "sqliteBytes": 1335296
+    },
+    {
+      "devices": 40,
+      "targetSamples": 400,
+      "generated": 400,
+      "published": 400,
+      "publishErrors": 0,
+      "received": 400,
+      "missing": 0,
+      "elapsedSeconds": 10.41,
+      "receivedPerSecond": 38.41,
+      "measurementToReceiveMs": {
+        "p50": 108,
+        "p95": 201,
+        "max": 259
+      },
+      "historyQueryMs": 1.33,
+      "cpuMs": 1750,
+      "processRssMB": 88.2,
+      "sqliteBytes": 2490368
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+node_modules/
+data/
+.env
+tmp/
+test-results/
+.pio/
+*.log

@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "message_id": "dev-hp01-assign-01-v1-2026-10-08T08:30:00.000Z-42",
+  "device_id": "dev-hp01",
+  "device_type": "ESP32_BEDSIDE_MONITOR",
+  "assignment_id": "assign-01-v1",
+  "patient_id": "BN-001",
+  "encounter_id": "ENC-01",
+  "ward_id": "HP",
+  "bed_id": "HP-01",
+  "measured_at": "2026-10-08T08:30:00.000Z",
+  "sequence": 42,
+  "sampling_interval_ms": 1000,
+  "readings": [
+    {
+      "sensor_id": "dev-hp01-pulse-sim",
+      "sensor_type": "PPG_SIMULATOR",
+      "code": "pulse_rate",
+      "value": 79,
+      "unit": "/min",
+      "quality": "valid",
+      "source": "simulated"
+    },
+    {
+      "sensor_id": "dev-hp01-spo2-sim",
+      "sensor_type": "OXIMETER_SIMULATOR",
+      "code": "spo2",
+      "value": 97.7,
+      "unit": "%",
+      "quality": "valid",
+      "source": "simulated"
+    },
+    {
+      "sensor_id": "dev-hp01-ds18b20",
+      "sensor_type": "DS18B20",
+      "code": "temperature",
+      "value": 36.8,
+      "unit": "Cel",
+      "quality": "valid",
+      "source": "simulated"
+    },
+    {
+      "sensor_id": "dev-hp01-resp-sim",
+      "sensor_type": "RESPIRATION_SIMULATOR",
+      "code": "respiratory_rate",
+      "value": 19,
+      "unit": "/min",
+      "quality": "valid",
+      "source": "simulated"
+    },
+    {
+      "sensor_id": "dev-hp01-bp-sim",
+      "sensor_type": "NIBP_SIMULATOR",
+      "code": "systolic",
+      "value": 121,
+      "unit": "mm[Hg]",
+      "quality": "valid",
+      "source": "simulated"
+    },
+    {
+      "sensor_id": "dev-hp01-bp-sim",
+      "sensor_type": "NIBP_SIMULATOR",
+      "code": "diastolic",
+      "value": 78,
+      "unit": "mm[Hg]",
+      "quality": "valid",
+      "source": "simulated"
+    },
+    {
+      "sensor_id": "dev-hp01-scale-sim",
+      "sensor_type": "SCALE_SIMULATOR",
+      "code": "weight",
+      "value": 54,
+      "unit": "kg",
+      "quality": "valid",
+      "source": "simulated"
+    },
+    {
+      "sensor_id": "dev-hp01-mpu6050",
+      "sensor_type": "MPU6050",
+      "code": "motion",
+      "value": 9.88,
+      "unit": "m/s2",
+      "quality": "valid",
+      "source": "simulated"
+    }
+  ]
+}

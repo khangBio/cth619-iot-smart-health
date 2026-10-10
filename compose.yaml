@@ -1,0 +1,92 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: smart_health
+      POSTGRES_USER: health
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-db-only}
+    volumes: ['postgres-data:/var/lib/postgresql/data']
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U health -d smart_health']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  broker-init:
+    build: .
+    user: root
+    command: ['node', 'scripts/broker-config.js', '/config']
+    environment:
+      DEVICE_COUNT: ${DEVICE_COUNT:-6}
+      MQTT_PASSWORD: ${MQTT_PASSWORD:-local-demo-only}
+    volumes: ['mqtt-config:/config']
+  mosquitto:
+    image: eclipse-mosquitto:2
+    depends_on:
+      broker-init: { condition: service_completed_successfully }
+    entrypoint:
+      [
+        '/bin/sh',
+        '-c',
+        'cp /mosquitto/config/passwords.plain /mosquitto/config/passwords && mosquitto_passwd -U /mosquitto/config/passwords && chown mosquitto:mosquitto /mosquitto/config/* && exec mosquitto -c /mosquitto/config/mosquitto.conf',
+      ]
+    ports: ['127.0.0.1:${DOCKER_MQTT_PORT:-1883}:1883']
+    volumes: ['mqtt-config:/mosquitto/config']
+  api:
+    build: .
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+      DEVICE_COUNT: ${DEVICE_COUNT:-6}
+      DATABASE_URL: postgres://health:${POSTGRES_PASSWORD:-local-db-only}@postgres:5432/smart_health
+      MQTT_URL: mqtt://mosquitto:1883
+      MQTT_PASSWORD: ${MQTT_PASSWORD:-local-demo-only}
+      INGEST_TOKEN: ${INGEST_TOKEN:-local-ingest-only}
+      INGEST_VIA_NODE_RED: 'true'
+      SESSION_SECRET: ${SESSION_SECRET:-local-session-only-change-me}
+      NURSE_PASSWORD: ${NURSE_PASSWORD:-nurse-demo}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin-demo}
+      EMR_URL: http://api:3000/sandbox/fhir
+      EMR_TOKEN: ${EMR_TOKEN:-local-emr-only}
+    depends_on:
+      postgres: { condition: service_healthy }
+      mosquitto: { condition: service_started }
+    ports: ['127.0.0.1:${DOCKER_HTTP_PORT:-3000}:3000']
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  node-red:
+    image: nodered/node-red:4.0.9
+    environment:
+      MQTT_PASSWORD: ${MQTT_PASSWORD:-local-demo-only}
+      INGEST_TOKEN: ${INGEST_TOKEN:-local-ingest-only}
+    entrypoint: ['/bin/sh', '-c']
+    command:
+      - 'node /config/prepare.cjs && exec node /usr/src/node-red/node_modules/node-red/red.js --userDir /data --settings /config/settings.js /data/flows.json'
+    depends_on:
+      api: { condition: service_healthy }
+    ports: ['127.0.0.1:${DOCKER_NODE_RED_PORT:-1880}:1880']
+    volumes: ['./infra/node-red:/config:ro', 'node-red-data:/data']
+  simulator:
+    build: .
+    profiles: ['simulator']
+    command: ['node', 'simulator/index.js']
+    environment:
+      API_URL: http://api:3000
+      MQTT_URL: mqtt://mosquitto:1883
+      MQTT_PASSWORD: ${MQTT_PASSWORD:-local-demo-only}
+      INGEST_TOKEN: ${INGEST_TOKEN:-local-ingest-only}
+    depends_on:
+      api: { condition: service_healthy }
+      node-red: { condition: service_started }
+volumes:
+  postgres-data:
+  mqtt-config:
+  node-red-data:

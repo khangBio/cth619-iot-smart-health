@@ -1,0 +1,63 @@
+{
+  "verifiedAt": "2026-10-10T08:21:07.620Z",
+  "platformioCore": "6.2.0",
+  "coreDirectory": "C:/Users/khang/.platformio",
+  "platform": "espressif32@6.9.0",
+  "scope": "Compiled using VS Code PlatformIO installation; binary and ELF checked; Wokwi sessions not started by this verification.",
+  "devices": [
+    {
+      "device": "dev-hp01",
+      "status": "PASS",
+      "binaryBytes": 856528,
+      "elfBytes": 13191988,
+      "deviceIdEmbedded": true,
+      "sha256": "8cf20584f55a1a966c10baf1d66cd8c81f8c98d28bf314612f18bf92f0c99e04",
+      "builtAt": "2026-10-10T08:13:32.072Z"
+    },
+    {
+      "device": "dev-hp02",
+      "status": "PASS",
+      "binaryBytes": 856528,
+      "elfBytes": 13191988,
+      "deviceIdEmbedded": true,
+      "sha256": "876d143394c246dd145d4e7c5c8abbbf40c968286ef1d969346e1209fcff8295",
+      "builtAt": "2026-10-10T08:14:49.638Z"
+    },
+    {
+      "device": "dev-hp03",
+      "status": "PASS",
+      "binaryBytes": 856528,
+      "elfBytes": 13191988,
+      "deviceIdEmbedded": true,
+      "sha256": "28c3552f790c8c8eaa323ea371171c6a4e60743254f4214b326631735a0ce13b",
+      "builtAt": "2026-10-10T08:15:58.871Z"
+    },
+    {
+      "device": "dev-hp04",
+      "status": "PASS",
+      "binaryBytes": 856528,
+      "elfBytes": 13191988,
+      "deviceIdEmbedded": true,
+      "sha256": "5bcd04fb80b86185904509780d25af931b8dcecd697b3a65559af1631ae8b395",
+      "builtAt": "2026-10-10T08:17:20.081Z"
+    },
+    {
+      "device": "dev-hp05",
+      "status": "PASS",
+      "binaryBytes": 856528,
+      "elfBytes": 13191988,
+      "deviceIdEmbedded": true,
+      "sha256": "d3d7a1e65c9977d3fab386aec92b6a7c1030b2b2824759207ce9cce44c362840",
+      "builtAt": "2026-10-10T08:18:55.927Z"
+    },
+    {
+      "device": "dev-hp06",
+      "status": "PASS",
+      "binaryBytes": 856528,
+      "elfBytes": 13191988,
+      "deviceIdEmbedded": true,
+      "sha256": "8679c48385c7bd1501cba79b26e8d1fb411b1326466199c4f12d6d321d084b0a",
+      "builtAt": "2026-10-10T08:20:34.673Z"
+    }
+  ]
+}

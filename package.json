@@ -1,0 +1,27 @@
+{
+  "name": "cth619-smart-health",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server/index.js",
+    "demo": "node --env-file-if-exists=.env server/index.js --demo",
+    "test": "node --test --test-concurrency=1 tests/*.test.js",
+    "simulate": "node --env-file-if-exists=.env simulator/index.js",
+    "load-test": "node scripts/load-test.js",
+    "wokwi:generate": "node --env-file-if-exists=.env scripts/generate-wokwi.js",
+    "format:check": "prettier --check server simulator scripts/*.js tests public infra/node-red compose.yaml package.json"
+  },
+  "dependencies": {
+    "aedes": "1.2.0",
+    "express": "5.1.0",
+    "mqtt": "5.16.0",
+    "pg": "8.16.3"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
+  }
+}

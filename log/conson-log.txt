@@ -1,0 +1,729 @@
+Building dev-hp01 with C:\Users\khang\.platformio\penv\Scripts\pio.exe
+Processing esp32dev (platform: espressif32@6.9.0; board: esp32dev; framework: arduino)
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/esp32dev.html
+PLATFORM: Espressif 32 (6.9.0) > Espressif ESP32 Dev Module
+HARDWARE: ESP32 240MHz, 320KB RAM, 4MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES: 
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - tool-esptoolpy @ 1.40501.0 (4.5.1) 
+ - toolchain-xtensa-esp32 @ 8.4.0+2021r2-patch5
+Converting sketch.ino
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 42 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- MQTT @ 2.5.3
+|-- ArduinoJson @ 7.4.3
+|-- OneWire @ 2.3.8
+|-- DallasTemperature @ 3.11.0
+|-- Adafruit MPU6050 @ 2.2.9
+|-- Adafruit Unified Sensor @ 1.1.15
+|-- WiFi @ 2.0.0
+|-- Wire @ 2.0.0
+|-- Adafruit BusIO @ 1.17.4
+|-- SPI @ 2.0.0
+Building in release mode
+Compiling .pio\build\esp32dev\src\sketch.ino.cpp.o
+Retrieving maximum program size .pio\build\esp32dev\firmware.elf
+Checking size .pio\build\esp32dev\firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [=         ]  14.4% (used 47196 bytes from 327680 bytes)
+Flash: [======    ]  64.8% (used 849949 bytes from 1310720 bytes)
+=========================================================== [SUCCESS] Took 12.59 seconds ===========================================================
+Ready: C:\VNPT_HIS_2024\SAU_DAI_HOC\HT-TT\HTTT-IOT\cth619-iot-smart-health\firmware\dev-hp01\.pio\build\esp32dev\firmware.bin
+Ready: C:\VNPT_HIS_2024\SAU_DAI_HOC\HT-TT\HTTT-IOT\cth619-iot-smart-health\firmware\dev-hp01\.pio\build\esp32dev\firmware.elf
+Building dev-hp02 with C:\Users\khang\.platformio\penv\Scripts\pio.exe
+Processing esp32dev (platform: espressif32@6.9.0; board: esp32dev; framework: arduino)
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/esp32dev.html
+PLATFORM: Espressif 32 (6.9.0) > Espressif ESP32 Dev Module
+HARDWARE: ESP32 240MHz, 320KB RAM, 4MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES: 
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - tool-esptoolpy @ 1.40501.0 (4.5.1) 
+ - toolchain-xtensa-esp32 @ 8.4.0+2021r2-patch5
+Converting sketch.ino
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 42 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- MQTT @ 2.5.3
+|-- ArduinoJson @ 7.4.3
+|-- OneWire @ 2.3.8
+|-- DallasTemperature @ 3.11.0
+|-- Adafruit MPU6050 @ 2.2.9
+|-- Adafruit Unified Sensor @ 1.1.15
+|-- WiFi @ 2.0.0
+|-- Wire @ 2.0.0
+|-- Adafruit BusIO @ 1.17.4
+|-- SPI @ 2.0.0
+Building in release mode
+Compiling .pio\build\esp32dev\src\sketch.ino.cpp.o
+Building .pio\build\esp32dev\bootloader.bin
+Generating partitions .pio\build\esp32dev\partitions.bin
+esptool.py v4.5.1
+Creating esp32 image...
+Merged 1 ELF section
+Successfully created esp32 image.
+Compiling .pio\build\esp32dev\lib14a\MQTT\MQTTClient.cpp.o
+Compiling .pio\build\esp32dev\lib14a\MQTT\lwmqtt\client.c.o
+Compiling .pio\build\esp32dev\lib14a\MQTT\lwmqtt\helpers.c.o
+Compiling .pio\build\esp32dev\lib14a\MQTT\lwmqtt\packet.c.o
+Compiling .pio\build\esp32dev\lib14a\MQTT\lwmqtt\string.c.o
+Compiling .pio\build\esp32dev\libce0\OneWire\OneWire.cpp.o
+Compiling .pio\build\esp32dev\libe63\DallasTemperature\DallasTemperature.cpp.o
+Compiling .pio\build\esp32dev\lib37b\Wire\Wire.cpp.o
+.pio/libdeps/esp32dev/OneWire/OneWire.cpp:599:22: warning: extra tokens at end of #undef directive
+ #  undef noInterrupts() {portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;portENTER_CRITICAL(&mux)
+                      ^
+.pio/libdeps/esp32dev/OneWire/OneWire.cpp:600:20: warning: extra tokens at end of #undef directive
+ #  undef interrupts() portEXIT_CRITICAL(&mux);}
+                    ^
+Compiling .pio\build\esp32dev\lib99d\SPI\SPI.cpp.o
+Archiving .pio\build\esp32dev\lib14a\libMQTT.a
+Compiling .pio\build\esp32dev\lib420\Adafruit BusIO\Adafruit_BusIO_Register.cpp.o
+Compiling .pio\build\esp32dev\lib420\Adafruit BusIO\Adafruit_GenericDevice.cpp.o
+Compiling .pio\build\esp32dev\lib420\Adafruit BusIO\Adafruit_I2CDevice.cpp.o
+Archiving .pio\build\esp32dev\libce0\libOneWire.a
+Compiling .pio\build\esp32dev\lib420\Adafruit BusIO\Adafruit_SPIDevice.cpp.o
+Archiving .pio\build\esp32dev\libe63\libDallasTemperature.a
+Compiling .pio\build\esp32dev\lib087\Adafruit Unified Sensor\Adafruit_Sensor.cpp.o
+Archiving .pio\build\esp32dev\lib37b\libWire.a
+Compiling .pio\build\esp32dev\libe42\Adafruit MPU6050\Adafruit_MPU6050.cpp.o
+Archiving .pio\build\esp32dev\lib99d\libSPI.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFi.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiAP.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiClient.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiGeneric.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiMulti.cpp.o
+Archiving .pio\build\esp32dev\lib420\libAdafruit BusIO.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiSTA.cpp.o
+Archiving .pio\build\esp32dev\lib087\libAdafruit Unified Sensor.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiScan.cpp.o
+Archiving .pio\build\esp32dev\libe42\libAdafruit MPU6050.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiServer.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiUdp.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\Esp.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\FirmwareMSC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\FunctionalInterrupt.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\HWCDC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\HardwareSerial.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\IPAddress.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\IPv6Address.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\MD5Builder.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\Print.cpp.o
+Archiving .pio\build\esp32dev\liba0d\libWiFi.a
+Compiling .pio\build\esp32dev\FrameworkArduino\Stream.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\StreamString.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\Tone.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\USB.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\USBCDC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\USBMSC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\WMath.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\WString.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\base64.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\cbuf.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-adc.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-bt.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-cpu.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-dac.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-gpio.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-i2c-slave.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-i2c.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-ledc.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-matrix.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-misc.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-psram.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-rgb-led.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-rmt.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-sigmadelta.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-spi.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-time.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-timer.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-tinyusb.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-touch.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-uart.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\firmware_msc_fat.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\libb64\cdecode.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\libb64\cencode.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\main.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\stdlib_noniso.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\wiring_pulse.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\wiring_shift.c.o
+Archiving .pio\build\esp32dev\libFrameworkArduino.a
+Linking .pio\build\esp32dev\firmware.elf
+Retrieving maximum program size .pio\build\esp32dev\firmware.elf
+Checking size .pio\build\esp32dev\firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [=         ]  14.4% (used 47196 bytes from 327680 bytes)
+Flash: [======    ]  64.8% (used 849949 bytes from 1310720 bytes)
+Building .pio\build\esp32dev\firmware.bin with action:
+  "$PYTHONEXE" "$OBJCOPY" --chip esp32 elf2image --flash_mode ${__get_board_flash_mode(__env__)} --flash_freq ${__get_board_f_image(__env__)} --flash_size 4MB --elf-sha256-offset 0xb0 -o $TARGET $SOURCES
+Building .pio\build\esp32dev\firmware.bin
+esptool.py v4.5.1
+Creating esp32 image...
+Merged 27 ELF sections
+Successfully created esp32 image.
+=========================================================== [SUCCESS] Took 45.95 seconds ===========================================================
+Ready: C:\VNPT_HIS_2024\SAU_DAI_HOC\HT-TT\HTTT-IOT\cth619-iot-smart-health\firmware\dev-hp02\.pio\build\esp32dev\firmware.bin
+Ready: C:\VNPT_HIS_2024\SAU_DAI_HOC\HT-TT\HTTT-IOT\cth619-iot-smart-health\firmware\dev-hp02\.pio\build\esp32dev\firmware.elf
+Building dev-hp03 with C:\Users\khang\.platformio\penv\Scripts\pio.exe
+Processing esp32dev (platform: espressif32@6.9.0; board: esp32dev; framework: arduino)
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/esp32dev.html
+PLATFORM: Espressif 32 (6.9.0) > Espressif ESP32 Dev Module
+HARDWARE: ESP32 240MHz, 320KB RAM, 4MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES: 
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - tool-esptoolpy @ 1.40501.0 (4.5.1) 
+ - toolchain-xtensa-esp32 @ 8.4.0+2021r2-patch5
+Converting sketch.ino
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 42 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- MQTT @ 2.5.3
+|-- ArduinoJson @ 7.4.3
+|-- OneWire @ 2.3.8
+|-- DallasTemperature @ 3.11.0
+|-- Adafruit MPU6050 @ 2.2.9
+|-- Adafruit Unified Sensor @ 1.1.15
+|-- WiFi @ 2.0.0
+|-- Wire @ 2.0.0
+|-- Adafruit BusIO @ 1.17.4
+|-- SPI @ 2.0.0
+Building in release mode
+Compiling .pio\build\esp32dev\src\sketch.ino.cpp.o
+Building .pio\build\esp32dev\bootloader.bin
+Generating partitions .pio\build\esp32dev\partitions.bin
+esptool.py v4.5.1
+Creating esp32 image...
+Merged 1 ELF section
+Successfully created esp32 image.
+Compiling .pio\build\esp32dev\lib15c\MQTT\MQTTClient.cpp.o
+Compiling .pio\build\esp32dev\lib15c\MQTT\lwmqtt\client.c.o
+Compiling .pio\build\esp32dev\lib15c\MQTT\lwmqtt\helpers.c.o
+Compiling .pio\build\esp32dev\lib15c\MQTT\lwmqtt\packet.c.o
+Compiling .pio\build\esp32dev\lib15c\MQTT\lwmqtt\string.c.o
+Compiling .pio\build\esp32dev\libb50\OneWire\OneWire.cpp.o
+Compiling .pio\build\esp32dev\lib0e7\DallasTemperature\DallasTemperature.cpp.o
+Compiling .pio\build\esp32dev\lib37b\Wire\Wire.cpp.o
+.pio/libdeps/esp32dev/OneWire/OneWire.cpp:599:22: warning: extra tokens at end of #undef directive
+ #  undef noInterrupts() {portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;portENTER_CRITICAL(&mux)
+                      ^
+.pio/libdeps/esp32dev/OneWire/OneWire.cpp:600:20: warning: extra tokens at end of #undef directive
+ #  undef interrupts() portEXIT_CRITICAL(&mux);}
+                    ^
+Compiling .pio\build\esp32dev\lib99d\SPI\SPI.cpp.o
+Archiving .pio\build\esp32dev\lib15c\libMQTT.a
+Compiling .pio\build\esp32dev\lib20a\Adafruit BusIO\Adafruit_BusIO_Register.cpp.o
+Archiving .pio\build\esp32dev\libb50\libOneWire.a
+Compiling .pio\build\esp32dev\lib20a\Adafruit BusIO\Adafruit_GenericDevice.cpp.o
+Compiling .pio\build\esp32dev\lib20a\Adafruit BusIO\Adafruit_I2CDevice.cpp.o
+Compiling .pio\build\esp32dev\lib20a\Adafruit BusIO\Adafruit_SPIDevice.cpp.o
+Archiving .pio\build\esp32dev\lib0e7\libDallasTemperature.a
+Compiling .pio\build\esp32dev\libe41\Adafruit Unified Sensor\Adafruit_Sensor.cpp.o
+Archiving .pio\build\esp32dev\lib37b\libWire.a
+Compiling .pio\build\esp32dev\lib5f6\Adafruit MPU6050\Adafruit_MPU6050.cpp.o
+Archiving .pio\build\esp32dev\lib99d\libSPI.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFi.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiAP.cpp.o
+Archiving .pio\build\esp32dev\lib20a\libAdafruit BusIO.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiClient.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiGeneric.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiMulti.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiSTA.cpp.o
+Archiving .pio\build\esp32dev\libe41\libAdafruit Unified Sensor.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiScan.cpp.o
+Archiving .pio\build\esp32dev\lib5f6\libAdafruit MPU6050.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiServer.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiUdp.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\Esp.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\FirmwareMSC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\FunctionalInterrupt.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\HWCDC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\HardwareSerial.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\IPAddress.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\IPv6Address.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\MD5Builder.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\Print.cpp.o
+Archiving .pio\build\esp32dev\liba0d\libWiFi.a
+Compiling .pio\build\esp32dev\FrameworkArduino\Stream.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\StreamString.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\Tone.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\USB.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\USBCDC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\USBMSC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\WMath.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\WString.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\base64.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\cbuf.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-adc.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-bt.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-cpu.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-dac.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-gpio.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-i2c-slave.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-i2c.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-ledc.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-matrix.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-misc.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-psram.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-rgb-led.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-rmt.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-sigmadelta.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-spi.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-time.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-timer.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-tinyusb.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-touch.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-uart.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\firmware_msc_fat.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\libb64\cdecode.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\libb64\cencode.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\main.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\stdlib_noniso.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\wiring_pulse.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\wiring_shift.c.o
+Archiving .pio\build\esp32dev\libFrameworkArduino.a
+Linking .pio\build\esp32dev\firmware.elf
+Retrieving maximum program size .pio\build\esp32dev\firmware.elf
+Checking size .pio\build\esp32dev\firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [=         ]  14.4% (used 47196 bytes from 327680 bytes)
+Flash: [======    ]  64.8% (used 849949 bytes from 1310720 bytes)
+Building .pio\build\esp32dev\firmware.bin with action:
+  "$PYTHONEXE" "$OBJCOPY" --chip esp32 elf2image --flash_mode ${__get_board_flash_mode(__env__)} --flash_freq ${__get_board_f_image(__env__)} --flash_size 4MB --elf-sha256-offset 0xb0 -o $TARGET $SOURCES
+Building .pio\build\esp32dev\firmware.bin
+esptool.py v4.5.1
+Creating esp32 image...
+Merged 27 ELF sections
+Successfully created esp32 image.
+=========================================================== [SUCCESS] Took 53.35 seconds ===========================================================
+Ready: C:\VNPT_HIS_2024\SAU_DAI_HOC\HT-TT\HTTT-IOT\cth619-iot-smart-health\firmware\dev-hp03\.pio\build\esp32dev\firmware.bin
+Ready: C:\VNPT_HIS_2024\SAU_DAI_HOC\HT-TT\HTTT-IOT\cth619-iot-smart-health\firmware\dev-hp03\.pio\build\esp32dev\firmware.elf
+Building dev-hp04 with C:\Users\khang\.platformio\penv\Scripts\pio.exe
+Processing esp32dev (platform: espressif32@6.9.0; board: esp32dev; framework: arduino)
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/esp32dev.html
+PLATFORM: Espressif 32 (6.9.0) > Espressif ESP32 Dev Module
+HARDWARE: ESP32 240MHz, 320KB RAM, 4MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES: 
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - tool-esptoolpy @ 1.40501.0 (4.5.1) 
+ - toolchain-xtensa-esp32 @ 8.4.0+2021r2-patch5
+Converting sketch.ino
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 42 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- MQTT @ 2.5.3
+|-- ArduinoJson @ 7.4.3
+|-- OneWire @ 2.3.8
+|-- DallasTemperature @ 3.11.0
+|-- Adafruit MPU6050 @ 2.2.9
+|-- Adafruit Unified Sensor @ 1.1.15
+|-- WiFi @ 2.0.0
+|-- Wire @ 2.0.0
+|-- Adafruit BusIO @ 1.17.4
+|-- SPI @ 2.0.0
+Building in release mode
+Compiling .pio\build\esp32dev\src\sketch.ino.cpp.o
+Building .pio\build\esp32dev\bootloader.bin
+Generating partitions .pio\build\esp32dev\partitions.bin
+esptool.py v4.5.1
+Creating esp32 image...
+Merged 1 ELF section
+Successfully created esp32 image.
+Compiling .pio\build\esp32dev\lib9ff\MQTT\MQTTClient.cpp.o
+Compiling .pio\build\esp32dev\lib9ff\MQTT\lwmqtt\client.c.o
+Compiling .pio\build\esp32dev\lib9ff\MQTT\lwmqtt\helpers.c.o
+Compiling .pio\build\esp32dev\lib9ff\MQTT\lwmqtt\packet.c.o
+Compiling .pio\build\esp32dev\lib9ff\MQTT\lwmqtt\string.c.o
+Compiling .pio\build\esp32dev\libc8e\OneWire\OneWire.cpp.o
+Compiling .pio\build\esp32dev\lib9ce\DallasTemperature\DallasTemperature.cpp.o
+Compiling .pio\build\esp32dev\lib37b\Wire\Wire.cpp.o
+.pio/libdeps/esp32dev/OneWire/OneWire.cpp:599:22: warning: extra tokens at end of #undef directive
+ #  undef noInterrupts() {portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;portENTER_CRITICAL(&mux)
+                      ^
+.pio/libdeps/esp32dev/OneWire/OneWire.cpp:600:20: warning: extra tokens at end of #undef directive
+ #  undef interrupts() portEXIT_CRITICAL(&mux);}
+                    ^
+Compiling .pio\build\esp32dev\lib99d\SPI\SPI.cpp.o
+Archiving .pio\build\esp32dev\lib9ff\libMQTT.a
+Compiling .pio\build\esp32dev\liba93\Adafruit BusIO\Adafruit_BusIO_Register.cpp.o
+Compiling .pio\build\esp32dev\liba93\Adafruit BusIO\Adafruit_GenericDevice.cpp.o
+Compiling .pio\build\esp32dev\liba93\Adafruit BusIO\Adafruit_I2CDevice.cpp.o
+Archiving .pio\build\esp32dev\libc8e\libOneWire.a
+Compiling .pio\build\esp32dev\liba93\Adafruit BusIO\Adafruit_SPIDevice.cpp.o
+Archiving .pio\build\esp32dev\lib9ce\libDallasTemperature.a
+Compiling .pio\build\esp32dev\libc3d\Adafruit Unified Sensor\Adafruit_Sensor.cpp.o
+Archiving .pio\build\esp32dev\lib37b\libWire.a
+Compiling .pio\build\esp32dev\lib284\Adafruit MPU6050\Adafruit_MPU6050.cpp.o
+Archiving .pio\build\esp32dev\lib99d\libSPI.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFi.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiAP.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiClient.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiGeneric.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiMulti.cpp.o
+Archiving .pio\build\esp32dev\liba93\libAdafruit BusIO.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiSTA.cpp.o
+Archiving .pio\build\esp32dev\libc3d\libAdafruit Unified Sensor.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiScan.cpp.o
+Archiving .pio\build\esp32dev\lib284\libAdafruit MPU6050.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiServer.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiUdp.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\Esp.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\FirmwareMSC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\FunctionalInterrupt.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\HWCDC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\HardwareSerial.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\IPAddress.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\IPv6Address.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\MD5Builder.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\Print.cpp.o
+Archiving .pio\build\esp32dev\liba0d\libWiFi.a
+Compiling .pio\build\esp32dev\FrameworkArduino\Stream.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\StreamString.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\Tone.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\USB.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\USBCDC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\USBMSC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\WMath.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\WString.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\base64.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\cbuf.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-adc.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-bt.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-cpu.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-dac.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-gpio.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-i2c-slave.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-i2c.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-ledc.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-matrix.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-misc.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-psram.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-rgb-led.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-rmt.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-sigmadelta.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-spi.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-time.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-timer.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-tinyusb.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-touch.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-uart.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\firmware_msc_fat.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\libb64\cdecode.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\libb64\cencode.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\main.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\stdlib_noniso.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\wiring_pulse.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\wiring_shift.c.o
+Archiving .pio\build\esp32dev\libFrameworkArduino.a
+Linking .pio\build\esp32dev\firmware.elf
+Retrieving maximum program size .pio\build\esp32dev\firmware.elf
+Checking size .pio\build\esp32dev\firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [=         ]  14.4% (used 47196 bytes from 327680 bytes)
+Flash: [======    ]  64.8% (used 849949 bytes from 1310720 bytes)
+Building .pio\build\esp32dev\firmware.bin with action:
+  "$PYTHONEXE" "$OBJCOPY" --chip esp32 elf2image --flash_mode ${__get_board_flash_mode(__env__)} --flash_freq ${__get_board_f_image(__env__)} --flash_size 4MB --elf-sha256-offset 0xb0 -o $TARGET $SOURCES
+Building .pio\build\esp32dev\firmware.bin
+esptool.py v4.5.1
+Creating esp32 image...
+Merged 27 ELF sections
+Successfully created esp32 image.
+=========================================================== [SUCCESS] Took 57.60 seconds ===========================================================
+Ready: C:\VNPT_HIS_2024\SAU_DAI_HOC\HT-TT\HTTT-IOT\cth619-iot-smart-health\firmware\dev-hp04\.pio\build\esp32dev\firmware.bin
+Ready: C:\VNPT_HIS_2024\SAU_DAI_HOC\HT-TT\HTTT-IOT\cth619-iot-smart-health\firmware\dev-hp04\.pio\build\esp32dev\firmware.elf
+Building dev-hp05 with C:\Users\khang\.platformio\penv\Scripts\pio.exe
+Processing esp32dev (platform: espressif32@6.9.0; board: esp32dev; framework: arduino)
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/esp32dev.html
+PLATFORM: Espressif 32 (6.9.0) > Espressif ESP32 Dev Module
+HARDWARE: ESP32 240MHz, 320KB RAM, 4MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES: 
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - tool-esptoolpy @ 1.40501.0 (4.5.1) 
+ - toolchain-xtensa-esp32 @ 8.4.0+2021r2-patch5
+Converting sketch.ino
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 42 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- MQTT @ 2.5.3
+|-- ArduinoJson @ 7.4.3
+|-- OneWire @ 2.3.8
+|-- DallasTemperature @ 3.11.0
+|-- Adafruit MPU6050 @ 2.2.9
+|-- Adafruit Unified Sensor @ 1.1.15
+|-- WiFi @ 2.0.0
+|-- Wire @ 2.0.0
+|-- Adafruit BusIO @ 1.17.4
+|-- SPI @ 2.0.0
+Building in release mode
+Compiling .pio\build\esp32dev\src\sketch.ino.cpp.o
+Building .pio\build\esp32dev\bootloader.bin
+Generating partitions .pio\build\esp32dev\partitions.bin
+esptool.py v4.5.1
+Creating esp32 image...
+Merged 1 ELF section
+Successfully created esp32 image.
+Compiling .pio\build\esp32dev\libb2c\MQTT\MQTTClient.cpp.o
+Compiling .pio\build\esp32dev\libb2c\MQTT\lwmqtt\client.c.o
+Compiling .pio\build\esp32dev\libb2c\MQTT\lwmqtt\helpers.c.o
+Compiling .pio\build\esp32dev\libb2c\MQTT\lwmqtt\packet.c.o
+Compiling .pio\build\esp32dev\libb2c\MQTT\lwmqtt\string.c.o
+Compiling .pio\build\esp32dev\lib2d0\OneWire\OneWire.cpp.o
+Compiling .pio\build\esp32dev\lib3b5\DallasTemperature\DallasTemperature.cpp.o
+Compiling .pio\build\esp32dev\lib37b\Wire\Wire.cpp.o
+.pio/libdeps/esp32dev/OneWire/OneWire.cpp:599:22: warning: extra tokens at end of #undef directive
+ #  undef noInterrupts() {portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;portENTER_CRITICAL(&mux)
+                      ^
+.pio/libdeps/esp32dev/OneWire/OneWire.cpp:600:20: warning: extra tokens at end of #undef directive
+ #  undef interrupts() portEXIT_CRITICAL(&mux);}
+                    ^
+Compiling .pio\build\esp32dev\lib99d\SPI\SPI.cpp.o
+Archiving .pio\build\esp32dev\libb2c\libMQTT.a
+Compiling .pio\build\esp32dev\libb78\Adafruit BusIO\Adafruit_BusIO_Register.cpp.o
+Archiving .pio\build\esp32dev\lib2d0\libOneWire.a
+Compiling .pio\build\esp32dev\libb78\Adafruit BusIO\Adafruit_GenericDevice.cpp.o
+Compiling .pio\build\esp32dev\libb78\Adafruit BusIO\Adafruit_I2CDevice.cpp.o
+Compiling .pio\build\esp32dev\libb78\Adafruit BusIO\Adafruit_SPIDevice.cpp.o
+Archiving .pio\build\esp32dev\lib3b5\libDallasTemperature.a
+Compiling .pio\build\esp32dev\lib9da\Adafruit Unified Sensor\Adafruit_Sensor.cpp.o
+Archiving .pio\build\esp32dev\lib37b\libWire.a
+Compiling .pio\build\esp32dev\lib032\Adafruit MPU6050\Adafruit_MPU6050.cpp.o
+Archiving .pio\build\esp32dev\lib99d\libSPI.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFi.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiAP.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiClient.cpp.o
+Archiving .pio\build\esp32dev\libb78\libAdafruit BusIO.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiGeneric.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiMulti.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiSTA.cpp.o
+Archiving .pio\build\esp32dev\lib9da\libAdafruit Unified Sensor.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiScan.cpp.o
+Archiving .pio\build\esp32dev\lib032\libAdafruit MPU6050.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiServer.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiUdp.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\Esp.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\FirmwareMSC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\FunctionalInterrupt.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\HWCDC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\HardwareSerial.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\IPAddress.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\IPv6Address.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\MD5Builder.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\Print.cpp.o
+Archiving .pio\build\esp32dev\liba0d\libWiFi.a
+Compiling .pio\build\esp32dev\FrameworkArduino\Stream.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\StreamString.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\Tone.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\USB.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\USBCDC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\USBMSC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\WMath.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\WString.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\base64.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\cbuf.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-adc.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-bt.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-cpu.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-dac.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-gpio.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-i2c-slave.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-i2c.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-ledc.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-matrix.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-misc.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-psram.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-rgb-led.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-rmt.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-sigmadelta.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-spi.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-time.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-timer.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-tinyusb.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-touch.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-uart.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\firmware_msc_fat.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\libb64\cdecode.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\libb64\cencode.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\main.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\stdlib_noniso.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\wiring_pulse.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\wiring_shift.c.o
+Archiving .pio\build\esp32dev\libFrameworkArduino.a
+Linking .pio\build\esp32dev\firmware.elf
+Retrieving maximum program size .pio\build\esp32dev\firmware.elf
+Checking size .pio\build\esp32dev\firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [=         ]  14.4% (used 47196 bytes from 327680 bytes)
+Flash: [======    ]  64.8% (used 849949 bytes from 1310720 bytes)
+Building .pio\build\esp32dev\firmware.bin with action:
+  "$PYTHONEXE" "$OBJCOPY" --chip esp32 elf2image --flash_mode ${__get_board_flash_mode(__env__)} --flash_freq ${__get_board_f_image(__env__)} --flash_size 4MB --elf-sha256-offset 0xb0 -o $TARGET $SOURCES
+Building .pio\build\esp32dev\firmware.bin
+esptool.py v4.5.1
+Creating esp32 image...
+Merged 27 ELF sections
+Successfully created esp32 image.
+=========================================================== [SUCCESS] Took 57.51 seconds ===========================================================
+Ready: C:\VNPT_HIS_2024\SAU_DAI_HOC\HT-TT\HTTT-IOT\cth619-iot-smart-health\firmware\dev-hp05\.pio\build\esp32dev\firmware.bin
+Ready: C:\VNPT_HIS_2024\SAU_DAI_HOC\HT-TT\HTTT-IOT\cth619-iot-smart-health\firmware\dev-hp05\.pio\build\esp32dev\firmware.elf
+Building dev-hp06 with C:\Users\khang\.platformio\penv\Scripts\pio.exe
+Processing esp32dev (platform: espressif32@6.9.0; board: esp32dev; framework: arduino)
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/esp32dev.html
+PLATFORM: Espressif 32 (6.9.0) > Espressif ESP32 Dev Module
+HARDWARE: ESP32 240MHz, 320KB RAM, 4MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES: 
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - tool-esptoolpy @ 1.40501.0 (4.5.1) 
+ - toolchain-xtensa-esp32 @ 8.4.0+2021r2-patch5
+Converting sketch.ino
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 42 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- MQTT @ 2.5.3
+|-- ArduinoJson @ 7.4.3
+|-- OneWire @ 2.3.8
+|-- DallasTemperature @ 3.11.0
+|-- Adafruit MPU6050 @ 2.2.9
+|-- Adafruit Unified Sensor @ 1.1.15
+|-- WiFi @ 2.0.0
+|-- Wire @ 2.0.0
+|-- Adafruit BusIO @ 1.17.4
+|-- SPI @ 2.0.0
+Building in release mode
+Compiling .pio\build\esp32dev\src\sketch.ino.cpp.o
+Building .pio\build\esp32dev\bootloader.bin
+Generating partitions .pio\build\esp32dev\partitions.bin
+esptool.py v4.5.1
+Creating esp32 image...
+Merged 1 ELF section
+Successfully created esp32 image.
+Compiling .pio\build\esp32dev\lib7be\MQTT\MQTTClient.cpp.o
+Compiling .pio\build\esp32dev\lib7be\MQTT\lwmqtt\client.c.o
+Compiling .pio\build\esp32dev\lib7be\MQTT\lwmqtt\helpers.c.o
+Compiling .pio\build\esp32dev\lib7be\MQTT\lwmqtt\packet.c.o
+Compiling .pio\build\esp32dev\lib7be\MQTT\lwmqtt\string.c.o
+Compiling .pio\build\esp32dev\liba40\OneWire\OneWire.cpp.o
+Compiling .pio\build\esp32dev\lib173\DallasTemperature\DallasTemperature.cpp.o
+Compiling .pio\build\esp32dev\lib37b\Wire\Wire.cpp.o
+.pio/libdeps/esp32dev/OneWire/OneWire.cpp:599:22: warning: extra tokens at end of #undef directive
+ #  undef noInterrupts() {portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;portENTER_CRITICAL(&mux)
+                      ^
+.pio/libdeps/esp32dev/OneWire/OneWire.cpp:600:20: warning: extra tokens at end of #undef directive
+ #  undef interrupts() portEXIT_CRITICAL(&mux);}
+                    ^
+Compiling .pio\build\esp32dev\lib99d\SPI\SPI.cpp.o
+Archiving .pio\build\esp32dev\lib7be\libMQTT.a
+Compiling .pio\build\esp32dev\lib5ee\Adafruit BusIO\Adafruit_BusIO_Register.cpp.o
+Archiving .pio\build\esp32dev\liba40\libOneWire.a
+Compiling .pio\build\esp32dev\lib5ee\Adafruit BusIO\Adafruit_GenericDevice.cpp.o
+Compiling .pio\build\esp32dev\lib5ee\Adafruit BusIO\Adafruit_I2CDevice.cpp.o
+Compiling .pio\build\esp32dev\lib5ee\Adafruit BusIO\Adafruit_SPIDevice.cpp.o
+Archiving .pio\build\esp32dev\lib173\libDallasTemperature.a
+Compiling .pio\build\esp32dev\lib7e6\Adafruit Unified Sensor\Adafruit_Sensor.cpp.o
+Archiving .pio\build\esp32dev\lib37b\libWire.a
+Compiling .pio\build\esp32dev\lib029\Adafruit MPU6050\Adafruit_MPU6050.cpp.o
+Archiving .pio\build\esp32dev\lib99d\libSPI.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFi.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiAP.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiClient.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiGeneric.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiMulti.cpp.o
+Archiving .pio\build\esp32dev\lib5ee\libAdafruit BusIO.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiSTA.cpp.o
+Archiving .pio\build\esp32dev\lib7e6\libAdafruit Unified Sensor.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiScan.cpp.o
+Archiving .pio\build\esp32dev\lib029\libAdafruit MPU6050.a
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiServer.cpp.o
+Compiling .pio\build\esp32dev\liba0d\WiFi\WiFiUdp.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\Esp.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\FirmwareMSC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\FunctionalInterrupt.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\HWCDC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\HardwareSerial.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\IPAddress.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\IPv6Address.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\MD5Builder.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\Print.cpp.o
+Archiving .pio\build\esp32dev\liba0d\libWiFi.a
+Compiling .pio\build\esp32dev\FrameworkArduino\Stream.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\StreamString.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\Tone.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\USB.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\USBCDC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\USBMSC.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\WMath.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\WString.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\base64.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\cbuf.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-adc.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-bt.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-cpu.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-dac.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-gpio.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-i2c-slave.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-i2c.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-ledc.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-matrix.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-misc.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-psram.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-rgb-led.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-rmt.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-sigmadelta.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-spi.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-time.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-timer.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-tinyusb.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-touch.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\esp32-hal-uart.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\firmware_msc_fat.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\libb64\cdecode.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\libb64\cencode.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\main.cpp.o
+Compiling .pio\build\esp32dev\FrameworkArduino\stdlib_noniso.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\wiring_pulse.c.o
+Compiling .pio\build\esp32dev\FrameworkArduino\wiring_shift.c.o
+Archiving .pio\build\esp32dev\libFrameworkArduino.a
+Linking .pio\build\esp32dev\firmware.elf
+Retrieving maximum program size .pio\build\esp32dev\firmware.elf
+Checking size .pio\build\esp32dev\firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [=         ]  14.4% (used 47196 bytes from 327680 bytes)
+Flash: [======    ]  64.8% (used 849949 bytes from 1310720 bytes)
+Building .pio\build\esp32dev\firmware.bin with action:
+  "$PYTHONEXE" "$OBJCOPY" --chip esp32 elf2image --flash_mode ${__get_board_flash_mode(__env__)} --flash_freq ${__get_board_f_image(__env__)} --flash_size 4MB --elf-sha256-offset 0xb0 -o $TARGET $SOURCES
+Building .pio\build\esp32dev\firmware.bin
+esptool.py v4.5.1
+Creating esp32 image...
+Merged 27 ELF sections
+Successfully created esp32 image.
+=========================================================== [SUCCESS] Took 60.27 seconds ===========================================================
+Ready: C:\VNPT_HIS_2024\SAU_DAI_HOC\HT-TT\HTTT-IOT\cth619-iot-smart-health\firmware\dev-hp06\.pio\build\esp32dev\firmware.bin
+Ready: C:\VNPT_HIS_2024\SAU_DAI_HOC\HT-TT\HTTT-IOT\cth619-iot-smart-health\firmware\dev-hp06\.pio\build\esp32dev\firmware.elf
+PS C:\VNPT_HIS_2024\SAU_DAI_HOC\HT-TT\HTTT-IOT\cth619-iot-smart-health> 

@@ -1,0 +1,31 @@
+name: Smart Health checks
+on: [push, pull_request]
+jobs:
+  application:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm test
+      - run: docker compose config --quiet
+  firmware:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        device: [dev-hp01, dev-hp02, dev-hp03, dev-hp04, dev-hp05, dev-hp06]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.platformio
+          key: pio-${{ runner.os }}-${{ hashFiles('firmware/template/platformio.ini') }}
+      - run: pip install platformio==6.2.0
+      - run: pio run -d firmware/${{ matrix.device }}
