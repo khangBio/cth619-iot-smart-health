@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS patients (id TEXT PRIMARY KEY, name TEXT NOT NULL, bi
     CREATE UNIQUE INDEX IF NOT EXISTS assignment_patient_active ON assignments(patient_id) WHERE ended_at IS NULL;
     CREATE TABLE IF NOT EXISTS messages (id TEXT PRIMARY KEY, device_id TEXT NOT NULL, assignment_id TEXT NOT NULL, patient_id TEXT NOT NULL, measured_at TEXT NOT NULL, received_at TEXT NOT NULL, payload TEXT NOT NULL);
     CREATE INDEX IF NOT EXISTS messages_patient_time ON messages(patient_id, measured_at);
+    CREATE INDEX IF NOT EXISTS messages_assignment_received ON messages(assignment_id, received_at DESC);
     CREATE TABLE IF NOT EXISTS measurements (id TEXT PRIMARY KEY, message_id TEXT NOT NULL REFERENCES messages(id), patient_id TEXT NOT NULL, code TEXT NOT NULL, value REAL NOT NULL, unit TEXT NOT NULL, quality TEXT NOT NULL, source TEXT NOT NULL, sensor_id TEXT NOT NULL, measured_at TEXT NOT NULL);
     CREATE INDEX IF NOT EXISTS measurements_patient_time ON measurements(patient_id, measured_at, code);
     CREATE INDEX IF NOT EXISTS measurements_message ON measurements(message_id);

@@ -116,6 +116,12 @@ export function createApp(service, { demo = false } = {}) {
   app.get('/api/health', (req, res) =>
     res.json({ ok: true, database: service.db.kind, mqtt: !!service.mqtt?.connected, demo })
   );
+  // Wokwi's virtual clock can run slower than real time. Firmware obtains a
+  // fresh server clock before sampling, without changing ingestion timestamps.
+  app.get('/api/time', (req, res) => {
+    res.set('Cache-Control', 'no-store');
+    res.json({ epoch_ms: service.now() });
+  });
   app.post('/api/ingest', ingestAuth, async (req, res) =>
     res.json(await service.ingest(req.body.payload || req.body, req.body.topic))
   );
@@ -281,6 +287,8 @@ export function createApp(service, { demo = false } = {}) {
       })
       .send('\uFEFF' + csv);
   });
+  if (process.env.DASHBOARD_URL)
+    app.get('/', (req, res) => res.redirect(process.env.DASHBOARD_URL));
   app.use(express.static(resolve(root, 'public')));
   app.use('/api', (req, res) => res.status(404).json({ error: 'Không tìm thấy API' }));
   app.use((error, req, res, next) => {

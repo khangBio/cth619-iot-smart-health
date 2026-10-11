@@ -1,4 +1,5 @@
 #include <WiFi.h>
+#include <HTTPClient.h>
 #include <MQTT.h>
 #include <ArduinoJson.h>
 #include <OneWire.h>
@@ -7,7 +8,12 @@
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
 #include <time.h>
+#include <sys/time.h>
 #include "config.h"
+
+#ifndef TIME_SYNC_URL
+#error "Define TIME_SYNC_URL in config.h (http://host.wokwi.internal:<API host port>/api/time)"
+#endif
 
 WiFiClient network;
 MQTTClient mqtt(6144);
@@ -24,6 +30,22 @@ const int RED_PIN=25, GREEN_PIN=26, BLUE_PIN=27, BUTTON_PIN=13;
 String timestamp() {
   time_t now=time(nullptr); struct tm utc; gmtime_r(&now,&utc);
   char text[28]; strftime(text,sizeof(text),"%Y-%m-%dT%H:%M:%S.000Z",&utc); return String(text);
+}
+bool synchronizeClock() {
+  // Synchronize for every acquisition: simulated seconds may take many real
+  // seconds. Periodic NTP alone cannot bound drift under a slow simulation.
+  WiFiClient timeNetwork;
+  HTTPClient http;
+  http.setConnectTimeout(2000);http.setTimeout(2000);
+  if(!http.begin(timeNetwork,TIME_SYNC_URL))return false;
+  int status=http.GET();JsonDocument response;
+  bool valid=status==200 && !deserializeJson(response,http.getStream());
+  int64_t epoch=valid ? response["epoch_ms"].as<int64_t>() : 0;
+  http.end();
+  if(epoch<1700000000000LL){Serial.println("TIME SYNC failed; no fresh sample published. Check TIME_SYNC_URL / API.");return false;}
+  struct timeval tv;tv.tv_sec=epoch/1000;tv.tv_usec=(epoch%1000)*1000;
+  settimeofday(&tv,nullptr);
+  return true;
 }
 time_t parseTime(const char* text) {
   struct tm t={}; int y,m,d,h,n,s;
@@ -64,6 +86,7 @@ void reading(JsonArray readings,const char* code,const char* sensor,const char* 
   JsonObject r=readings.add<JsonObject>();r["sensor_id"]=String(DEVICE_ID)+"-"+sensor;r["sensor_type"]=type;r["code"]=code;r["value"]=roundf(value*100)/100;r["unit"]=unit;r["quality"]=quality;r["source"]=source;
 }
 void telemetry() {
+  if(!synchronizeClock())return;
   thermometer.requestTemperatures();float temperature=thermometer.getTempCByIndex(0);
   sensors_event_t a,g,t;float motion=0;
   if(motionReady){motionSensor.getEvent(&a,&g,&t);motion=sqrtf(a.acceleration.x*a.acceleration.x+a.acceleration.y*a.acceleration.y+a.acceleration.z*a.acceleration.z);}
@@ -89,7 +112,7 @@ void setup() {
   Serial.begin(115200);pinMode(RED_PIN,OUTPUT);pinMode(GREEN_PIN,OUTPUT);pinMode(BLUE_PIN,OUTPUT);pinMode(BUTTON_PIN,INPUT_PULLUP);pinMode(34,INPUT);
   Wire.begin(21,22);motionReady=motionSensor.begin();thermometer.begin();thermometer.setResolution(10);
   setenv("TZ","UTC0",1);tzset();bootId=String(esp_random(),HEX);
-  WiFi.begin("Wokwi-GUEST","",6);configTime(0,0,"pool.ntp.org","time.google.com");
+  WiFi.begin("Wokwi-GUEST","",6);
   mqtt.begin(MQTT_HOST,MQTT_PORT,network);mqtt.onMessage(receive);
   mqtt.setWill("hospital/HP/devices/" DEVICE_ID "/status","{\"online\":false}",true,1);
 }
@@ -101,10 +124,10 @@ void loop() {
       mqtt.publish(String("hospital/HP/devices/")+DEVICE_ID+"/status","{\"online\":true}",true,1);
     }}delay(5);return;
   }
-  mqtt.loop();if(time(nullptr)<1700000000){delay(5);return;}
+  mqtt.loop();
   if(pendingAck.length() && mqtt.publish(String("hospital/HP/beds/")+BED_ID+"/lamp/ack",pendingAck,false,1)){pendingAck="";Serial.println("ACTUATOR ACK "+lampMode+" "+lastCommand);}
   bool button=digitalRead(BUTTON_PIN);
-  if(button==LOW&&previousButton==HIGH&&millis()-lastPress>300){lastPress=millis();JsonDocument p;identity(p);p["event"]="nurse_call";String body;serializeJson(p,body);mqtt.publish(String("hospital/HP/devices/")+DEVICE_ID+"/event",body,false,1);}
+  if(button==LOW&&previousButton==HIGH&&millis()-lastPress>300){lastPress=millis();if(synchronizeClock()){JsonDocument p;identity(p);p["event"]="nurse_call";String body;serializeJson(p,body);mqtt.publish(String("hospital/HP/devices/")+DEVICE_ID+"/event",body,false,1);}}
   previousButton=button;
   if(millis()-lastSample>=1000){lastSample=millis();telemetry();}
   delay(5);

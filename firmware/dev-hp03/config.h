@@ -8,3 +8,5 @@
 #define MQTT_PASSWORD "325f6e036c854258d5ffb7a4"
 
 #define MQTT_PORT 1885
+
+#define TIME_SYNC_URL "http://host.wokwi.internal:3001/api/time"

@@ -4,6 +4,9 @@ const count = Number(process.env.DEVICE_COUNT || 6);
 const mqttPort = Number(process.env.WOKWI_MQTT_PORT || process.env.DOCKER_MQTT_PORT || 1883);
 if (!Number.isInteger(mqttPort) || mqttPort < 1 || mqttPort > 65535)
   throw new Error('Wokwi MQTT port must be an integer from 1 to 65535');
+const timePort = Number(process.env.WOKWI_HTTP_PORT || process.env.DOCKER_HTTP_PORT || 3000);
+if (!Number.isInteger(timePort) || timePort < 1 || timePort > 65535)
+  throw new Error('Invalid WOKWI_HTTP_PORT');
 for (let i = 1; i <= count; i++) {
   const s = String(i).padStart(2, '0'),
     id = `dev-hp${s}`,
@@ -13,7 +16,7 @@ for (let i = 1; i <= count; i++) {
     copyFileSync(`firmware/template/${f}`, `${dir}/${f}`);
   writeFileSync(
     `${dir}/config.h`,
-    `#pragma once\n#define DEVICE_ID "${id}"\n#define BED_ID "HP-${s}"\n#define INITIAL_ASSIGNMENT "assign-${s}-v1"\n#define INITIAL_PATIENT "BN-${String(i).padStart(3, '0')}"\n#define INITIAL_ENCOUNTER "ENC-${s}"\n#define MQTT_HOST "host.wokwi.internal"\n#define MQTT_PORT ${mqttPort}\n#define MQTT_PASSWORD "${devicePassword(id)}"\n`
+    `#pragma once\n#define DEVICE_ID "${id}"\n#define BED_ID "HP-${s}"\n#define INITIAL_ASSIGNMENT "assign-${s}-v1"\n#define INITIAL_PATIENT "BN-${String(i).padStart(3, '0')}"\n#define INITIAL_ENCOUNTER "ENC-${s}"\n#define MQTT_HOST "host.wokwi.internal"\n#define MQTT_PORT ${mqttPort}\n#define TIME_SYNC_URL "http://host.wokwi.internal:${timePort}/api/time"\n#define MQTT_PASSWORD "${devicePassword(id)}"\n`
   );
   const diagram = {
     version: 1,

@@ -289,6 +289,55 @@ test('Old and out-of-order measurements are stored but never overwrite live valu
   assert.equal(result.live, false);
   assert.equal((await s.snapshot()).beds[0].latest_at, current);
 });
+
+test('Delayed telemetry is visible as received but never becomes live or raises physiological alarms', async () => {
+  await send();
+  const liveAt = (await s.snapshot()).beds[0].latest_at;
+  now += 240000;
+  const delayed = sample(a, seq++, 'hypoxia', new Date(now - 180000).toISOString());
+  assert.equal((await s.ingest(delayed)).live, false);
+  let bed = (await s.snapshot()).beds[0];
+  assert.equal(bed.online, false);
+  assert.equal(bed.receiving, true);
+  assert.equal(bed.data_status, 'stale');
+  assert.equal(bed.sample_delay_seconds, 180);
+  assert.equal(bed.received_sample.message_id, delayed.message_id);
+  assert.equal(bed.latest_at, liveAt);
+  assert.equal((await db.all("SELECT * FROM alarms WHERE rule='spo2_low'")).length, 0);
+  // An event cannot replace the latest received measurement.
+  const event = sample(a, seq++, 'normal', new Date(now - 170000).toISOString());
+  event.event = 'nurse_call';
+  delete event.readings;
+  await s.ingest(event);
+  assert.equal((await s.snapshot()).beds[0].received_sample.message_id, delayed.message_id);
+  now += 16000;
+  bed = (await s.snapshot()).beds[0];
+  assert.equal(bed.receiving, false);
+  assert.equal(bed.data_status, 'offline');
+  await send();
+  bed = (await s.snapshot()).beds[0];
+  assert.equal(bed.online, true);
+  assert.equal(bed.data_status, 'live');
+});
+
+test('Public firmware time endpoint uses the server clock without cache or patient data', async () => {
+  const app = createApp(s);
+  const server = await new Promise((resolve) => {
+    const srv = app.listen(0, '127.0.0.1', () => resolve(srv));
+  });
+  try {
+    const url = `http://127.0.0.1:${server.address().port}/api/time`;
+    const r = await fetch(url);
+    assert.equal(r.status, 200);
+    assert.equal(r.headers.get('cache-control'), 'no-store');
+    assert.deepEqual(await r.json(), { epoch_ms: now });
+    now += 1234;
+    assert.deepEqual(await fetch(url).then((r) => r.json()), { epoch_ms: now });
+  } finally {
+    server.closeAllConnections();
+    await new Promise((resolve) => server.close(resolve));
+  }
+});
 test('T11: EMR outage retries durably; confirmation is idempotent, BP uses two components', async () => {
   await send();
   const row = await db.get('SELECT id FROM messages');

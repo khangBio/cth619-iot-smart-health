@@ -1,5 +1,28 @@
 # Kết quả kiểm chứng — 08/10/2026
 
+## Sửa thời gian Wokwi và dữ liệu trên FlowFuse — 10/10/2026
+
+- Nguyên nhân xác minh bằng MQTT và PostgreSQL: `dev-hp01/dev-hp02` phát telemetry đều nhưng `measured_at` trễ 191–215 giây so với `received_at`; API lưu lịch sử và loại khỏi luồng trực tuyến theo `maxLiveAgeSeconds=15`. Không có lỗi mất bản tin giữa Node-RED và DB.
+- Bổ sung API `/api/time` không cache; firmware đồng bộ giờ máy chủ trước mỗi lần đo và sự kiện. Giữ nguyên kiểm tra độ mới, định danh, alarm và timestamp lịch sử. Cập nhật template, sáu sketch/config và generator; giữ nguyên credential và diagram.
+- Snapshot bổ sung mẫu telemetry vừa nhận theo **assignment hiện tại**, thời gian nhận, độ trễ và trạng thái `live/stale/offline`. Sự kiện gọi không thay mẫu đo. Dashboard hiển thị mẫu trễ có cảnh báo, phân biệt với mất kết nối.
+- **28/28 tests PASS**, gồm kiểm tra mẫu trễ không cập nhật live/không tạo báo động sinh lý, chuyển sang offline khi ngừng nhận, phục hồi khi có mẫu mới và API thời gian không lộ dữ liệu/cache.
+- **6/6 firmware build SUCCESS** bằng script PowerShell; RAM 47.456 byte, flash 880.509 byte mỗi bộ. Cần Stop/Start Wokwi để nạp binary mới.
+- Sau khi người dùng khởi động lại dev-hp01, xác minh runtime thực: API báo cả dev-hp01 và dev-hp02 `online=true`, có mẫu DS18B20/MPU6050 nguồn `wokwi`, độ trễ đo nhận khoảng 6–8 giây trong lượt quan sát. Chrome hiển thị BN-001 “Ổn định”, đủ sáu chỉ số và không có lỗi component. [Ảnh kiểm tra](screenshots/wokwi-time-sync.png). Không khởi động simulator Docker để thay dữ liệu của Wokwi.
+- Giới hạn: chưa chạy đồng thời cả sáu Wokwi bằng firmware mới; tốc độ và độ trễ phụ thuộc tải máy. Không khẳng định cập nhật 1 Hz theo thời gian thực khi mô phỏng chạy chậm.
+
+## Chuyển sang FlowFuse Dashboard — 10/10/2026
+
+- Sửa lỗi editor kẹt `Loading Nodes 37/66`: cấu hình `nodesDir` ban đầu quét toàn bộ dependency, nhận nhầm `tslib.html` / `tslib.es6.html` thành định nghĩa node và yêu cầu `/tslib.es6.js` trả 404. Giới hạn `nodesDir` vào đúng package `@flowfuse/node-red-dashboard`. Sau restart, API `/nodes` có 64 bộ node (27 của FlowFuse), không còn hai mục tslib; Chrome tải đầy đủ palette, hai flow và node debug người dùng, không phát sinh lỗi HTTP/JavaScript. Đã kiểm tra lại đăng nhập dashboard, biểu đồ bệnh nhân và xuất bản in.
+
+- Docker đã build và chạy FlowFuse Dashboard 2.0 **1.33.0**, sáu trang tại `http://127.0.0.1:1880/dashboard`. API trên cổng 3001 chuyển hướng trang gốc về dashboard. Node-RED vẫn nhận MQTT và chuyển HTTP vào PostgreSQL.
+- **26/26 automated tests PASS** trên Node 24: bổ sung proxy session theo người dùng, chặn truy cập không đăng nhập, quyền admin, Origin, cookie Path/HttpOnly, CSV và cấu trúc sáu trang không lưu payload bệnh nhân dùng chung.
+- Chrome headless trên runtime Docker: đăng nhập nurse, sáu thiết bị online và sáu đèn có ACK; bốn đồ thị SVG có đường số đo; phiếu 12 cột, tạo PDF khi in; tải CSV; bảng tám kênh cảm biến; dialog xác nhận EMR; dialog timeline và nút tiếp nhận yêu cầu.
+- Kiểm tra role trên giao diện: nurse bị chặn trang quản trị; admin xem đủ chín trường cấu hình/audit. Một browser context riêng chưa đăng nhập không thấy các thẻ bệnh nhân. Không ghi nhận lỗi runtime/component trong các thao tác này.
+- Kiểm tra màn hình 390px không tràn ngang trang. Ảnh minh chứng: [Tổng quan](screenshots/flowfuse-overview.png), [Bệnh nhân](screenshots/flowfuse-patient.png), [Phiếu sinh tồn](screenshots/flowfuse-sheet.png), [Điện thoại](screenshots/flowfuse-mobile.png).
+- Bản in đã được render và kiểm tra lại sau khi tách CSS khỏi bố cục FlowFuse: **một trang A4 ngang**, đủ 12 cột thời gian và sáu hàng chỉ số, không cắt mép. [Ảnh bản in](screenshots/flowfuse-print.png).
+- Đã xác nhận tồn tại bản sao flow và credential trước chuyển đổi trong volume `/data`. Simulator Docker dùng cho kiểm tra đã dừng sau kiểm thử; dashboard, API, broker và PostgreSQL tiếp tục chạy. Sáu phiên Wokwi không được khởi động trong đợt chuyển giao diện này.
+- Giới hạn: đợt kiểm tra UI mới mở dialog xử lý/xác nhận, không sửa các yêu cầu chăm sóc sẵn có hoặc gửi mẫu vào EMR; chuyển trạng thái và EMR được kiểm thử bằng bộ test nghiệp vụ. Bản demo local `npm run demo` vẫn dùng giao diện HTML cũ.
+
 ## Cập nhật build sáu firmware bằng PlatformIO của VS Code — 10/10/2026
 
 - Khắc phục `UnknownPlatform`: bộ `espressif32@6.9.0` tại `C:\Users\khang\.platformio\platforms` bị thiếu `platform.json`; đã chuyển bộ thiếu file vào thư mục `recovery` và cài lại đúng phiên bản.

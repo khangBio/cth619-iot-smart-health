@@ -1,0 +1,14 @@
+# Optional SQL/visualization tool. Does not publish the PostgreSQL port.
+# docker compose -f compose.yaml -f compose.pgadmin.yaml up -d pgadmin
+services:
+  pgadmin:
+    image: dpage/pgadmin4:9.17
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@example.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-pgadmin-demo}
+    ports: ['127.0.0.1:${PGADMIN_PORT:-5050}:80']
+    volumes: ['pgadmin-data:/var/lib/pgadmin']
+    depends_on:
+      postgres: { condition: service_healthy }
+volumes:
+  pgadmin-data:

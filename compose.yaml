@@ -47,6 +47,7 @@ services:
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin-demo}
       EMR_URL: http://api:3000/sandbox/fhir
       EMR_TOKEN: ${EMR_TOKEN:-local-emr-only}
+      DASHBOARD_URL: http://127.0.0.1:${DOCKER_NODE_RED_PORT:-1880}/dashboard
     depends_on:
       postgres: { condition: service_healthy }
       mosquitto: { condition: service_started }
@@ -63,10 +64,11 @@ services:
       timeout: 3s
       retries: 20
   node-red:
-    image: nodered/node-red:4.0.9
+    build: ./infra/node-red
     environment:
       MQTT_PASSWORD: ${MQTT_PASSWORD:-local-demo-only}
       INGEST_TOKEN: ${INGEST_TOKEN:-local-ingest-only}
+      HEALTH_API_URL: http://api:3000
     entrypoint: ['/bin/sh', '-c']
     command:
       - 'node /config/prepare.cjs && exec node /usr/src/node-red/node_modules/node-red/red.js --userDir /data --settings /config/settings.js /data/flows.json'

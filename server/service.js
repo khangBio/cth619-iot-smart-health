@@ -655,6 +655,21 @@ export class HealthService {
       b.sensors = JSON.parse(b.sensors);
       b.online =
         !!b.latest_at && this.now() - Date.parse(b.latest_at) <= rules.offlineSeconds * 1000;
+      const received = await this.db.get(
+        'SELECT m.payload,m.measured_at,m.received_at FROM messages m WHERE m.assignment_id=? AND EXISTS (SELECT 1 FROM measurements v WHERE v.message_id=m.id) ORDER BY m.received_at DESC,m.id DESC LIMIT 1',
+        [b.id]
+      );
+      b.received_sample = received ? JSON.parse(received.payload) : null;
+      b.received_at = received?.received_at || null;
+      b.receiving =
+        !!received && this.now() - Date.parse(received.received_at) <= rules.offlineSeconds * 1000;
+      b.sample_delay_seconds = received
+        ? Math.max(
+            0,
+            Math.round((Date.parse(received.received_at) - Date.parse(received.measured_at)) / 1000)
+          )
+        : null;
+      b.data_status = b.online ? 'live' : b.receiving ? 'stale' : 'offline';
       b.quality = b.latest
         ? b.latest.readings.some((r) => r.quality === 'invalid')
           ? 'invalid'

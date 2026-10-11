@@ -1,0 +1,4 @@
+- chạy giả lập trên nhiều máy #
+- Lưu trữ EMR
+- data telemetry
+- tính giá trị trung bình sinh hiệu

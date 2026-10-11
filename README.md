@@ -2,7 +2,11 @@
 
 Hệ thống chạy xuyên suốt: **6+ thiết bị → MQTT → tiếp nhận/kiểm tra → lưu dữ liệu → rule → dashboard & RGB LED → điều dưỡng xử lý → EMR sandbox**. Giao diện tiếng Việt, bệnh nhân giả lập, mở rộng cấu hình tới 20 giường/khoa.
 
+**Giao diện chính trong Docker đã chuyển sang FlowFuse Dashboard 2.0** (`@flowfuse/node-red-dashboard` 1.33.0). Mở **http://127.0.0.1:1880/dashboard**. Hướng dẫn sửa giao diện, vận hành và sao lưu: [docs/flowfuse-dashboard.md](docs/flowfuse-dashboard.md).
+
 ## Chạy nhanh trên máy cá nhân
+
+Phần này chạy bản demo HTML độc lập cũ để tương thích. Muốn dùng giao diện FlowFuse mới, dùng bộ Docker ở phần bên dưới.
 
 Yêu cầu Node.js **22.13+**, khuyến nghị Node 24. Không cần Docker cho bản demo.
 
@@ -69,7 +73,8 @@ docker compose up -d --build --no-deps api
 docker compose --profile simulator stop
 ```
 
-- Dashboard: http://127.0.0.1:3000
+- FlowFuse Dashboard: http://127.0.0.1:1880/dashboard (đăng nhập `nurse / nurse-demo` hoặc `admin / admin-demo`, nếu chưa đổi mật khẩu trong `.env`)
+- API: http://127.0.0.1:3000; mở trang gốc sẽ chuyển sang FlowFuse Dashboard
 - Node-RED editor: http://127.0.0.1:1880 (chỉ publish cổng localhost)
 - MQTT: `127.0.0.1:1883`, bắt buộc credential, ACL riêng từng thiết bị
 - PostgreSQL chỉ truy cập trong Docker network, lưu named volume.
@@ -83,13 +88,13 @@ DOCKER_HTTP_PORT=3001
 DOCKER_NODE_RED_PORT=1880
 ```
 
-Chạy lại `docker compose up --build -d`. Khi đó dashboard Docker là http://127.0.0.1:3001, Node-RED là http://127.0.0.1:1880 và MQTT từ máy host/gateway là `127.0.0.1:1885`. Bản demo local vẫn dùng cổng riêng 3000/1884. Các địa chỉ **bên trong Docker** vẫn là `mosquitto:1883` và `api:3000`; không đổi MQTT_URL của container hoặc địa chỉ HTTP trong flow Node-RED sang cổng host.
+Chạy lại `docker compose up --build -d`. Khi đó API Docker ở http://127.0.0.1:3001 (trang gốc chuyển sang dashboard), FlowFuse ở http://127.0.0.1:1880/dashboard, editor Node-RED ở http://127.0.0.1:1880 và MQTT từ máy host/gateway là `127.0.0.1:1885`. Bản demo local vẫn dùng cổng riêng 3000/1884. Các địa chỉ **bên trong Docker** vẫn là `mosquitto:1883` và `api:3000`; không đổi MQTT_URL của container hoặc địa chỉ HTTP trong flow Node-RED sang cổng host.
 
 `MQTT_PORT`/`MQTT_URL` trong `.env` cấu hình demo local, còn `DOCKER_MQTT_PORT` cấu hình cổng publish của Compose. Firmware dùng `MQTT_PORT` trong `config.h`; lệnh `npm run wokwi:generate` lấy giá trị từ `WOKWI_MQTT_PORT` nếu có, nếu không lấy `DOCKER_MQTT_PORT`, mặc định 1883. Sau khi đổi cổng hãy cập nhật/sinh lại config và biên dịch firmware. Lệnh sinh lại sẽ ghi đè các file project được sinh; lưu riêng chỉnh sửa mạch/sketch tùy biến trước khi chạy.
 
-Các flow cấu hình và credential được nạp vào `/data` khi Node-RED khởi động. Không sửa flow trực tiếp rồi kỳ vọng tự ghi ngược về repo; export về `infra/node-red/flows.json` nếu cần lưu thay đổi. Credential Node-RED trong volume demo ở dạng rõ (file 0600), chưa dùng kho bí mật sản xuất.
+Các flow cấu hình và credential được nạp vào `/data` khi Node-RED khởi động. Lần chuyển đổi đầu sao lưu flow cũ thành `/data/flows.before-flowfuse.json` cùng bản sao credential. Các node ngoài phạm vi quản lý và nhánh debug được giữ lại. Node tích hợp và node có ID `ff-health-*` được cập nhật từ mã nguồn; chỉnh các file nguồn thay vì chỉ sửa trực tiếp rồi restart. Credential Node-RED trong volume demo ở dạng rõ (file 0600), chưa dùng kho bí mật sản xuất.
 
-### Node-RED tham gia ở đâu?
+### Flow Node-RED
 
 | Chế độ chạy | Luồng nhận dữ liệu | Node-RED |
 |---|---|---|
@@ -104,7 +109,11 @@ Thư mục `infra/node-red` gồm:
 |---|---|
 | `flows.json` | Flow subscribe `hospital/#`, lọc topic đầu vào, đọc JSON, gắn Bearer `INGEST_TOKEN`, gọi API và ghi lỗi tích hợp |
 | `settings.js` | Cấu hình runtime/editor cổng 1880, logging và cách lưu credential |
-| `prepare.cjs` | Chạy trước Node-RED trong container: chép flow từ `/config` sang `/data`, tạo `flows_cred.json` với tài khoản MQTT lấy từ biến môi trường |
+| `prepare.cjs` | Sao lưu, hợp nhất flow tích hợp và flow dashboard; giữ node riêng và nhánh debug, nạp credential MQTT |
+| `Dockerfile`, `package.json` | Cài FlowFuse Dashboard 1.33.0 |
+| `dashboard/component.vue`, `styles.css`, `visuals.js` | Giao diện Vue, kiểu hiển thị, SVG biểu đồ và phiếu sinh tồn |
+| `build-dashboard.cjs`, `dashboard-flow.json` | Sinh sáu trang FlowFuse và bản export nhập vào editor |
+| `api-proxy.cjs` | Proxy `/health-api` tới backend, giữ phiên đăng nhập riêng và phân quyền |
 
 Flow định tuyến như sau:
 
@@ -115,9 +124,9 @@ Flow định tuyến như sau:
 | `/ack` | `POST /api/ack` |
 | `/config`, `/cmd` | Bỏ qua, tránh chuyển lệnh đầu ra ngược vào ingestion |
 
-Node-RED làm cầu nối MQTT → HTTP. Kiểm tra định danh, ghi DB, đánh giá ngưỡng, tạo yêu cầu chăm sóc và xây dựng lệnh đèn nằm trong `server/service.js`. Dashboard được phục vụ từ `public/`, không phải dashboard của Node-RED. Chiều điều khiển là backend → MQTT → actuator; ACK trở lại qua Node-RED.
+Node-RED làm cầu nối MQTT → HTTP và phục vụ **FlowFuse Dashboard**. Kiểm tra định danh, ghi DB, đánh giá ngưỡng, tạo yêu cầu chăm sóc và xây dựng lệnh đèn nằm trong `server/service.js`. Giao diện Vue chạy trong các node `ui-template`, lấy API theo phiên đăng nhập qua `/health-api`; không dùng iframe. Chiều điều khiển là backend → MQTT → actuator; ACK trở lại qua Node-RED. Thư mục `public/` chỉ còn dùng cho demo local cũ.
 
-Sau khi chạy Compose, mở http://127.0.0.1:1880, chọn flow **Smart Health · IoT integration** và kiểm tra MQTT node hiển thị connected. Mở dashboard ở cổng 3000 để xem số đo, thử kịch bản bất thường và kiểm tra ACK. Xem lỗi bằng sidebar Debug và `docker compose logs -f node-red api`. Flow được nạp tự động, không cần import thủ công. Địa chỉ `mosquitto` và `api` trong flow là tên dịch vụ trong Docker network; nếu import vào Node-RED chạy ngoài Docker phải đổi địa chỉ và cấu hình credential tương ứng.
+Sau khi chạy Compose, mở http://127.0.0.1:1880, chọn flow **Smart Health · IoT integration** và kiểm tra MQTT node hiển thị connected. Flow **VitalCare · FlowFuse Dashboard** chứa sáu màn hình. Mở http://127.0.0.1:1880/dashboard để xem số đo và kiểm tra ACK. Xem lỗi bằng sidebar Debug và `docker compose logs -f node-red api`. Flow được nạp tự động, không cần import thủ công. Địa chỉ `mosquitto` và `api` trong flow là tên dịch vụ trong Docker network; nếu import vào Node-RED chạy ngoài Docker phải đổi địa chỉ và cấu hình credential tương ứng.
 
 Trạng thái kiểm chứng (10/10/2026): đã chạy Docker với Mosquitto, Node-RED và PostgreSQL; kiểm thử sáu simulator tạm đã xác nhận số đo → cảnh báo → lệnh đèn → ACK, phục hồi và truy vấn lịch sử. Các simulator kiểm thử đã dừng; để phát dữ liệu liên tục dùng Wokwi hoặc `docker compose --profile simulator up --build -d`. Không chạy cả hai nguồn cho cùng device ID. Flow hiện chưa có hàng đợi bền vững để gửi lại telemetry khi HTTP API bị gián đoạn; xem `docs/verification.md` và `docs/architecture.md`.
 
@@ -135,6 +144,7 @@ Trạng thái kiểm chứng (10/10/2026): đã chạy Docker với Mosquitto, N
 Trên Windows có thể build tuần tự cả sáu thiết bị từ thư mục gốc project bằng PlatformIO của VS Code:
 
 ```powershell
+#Build firmware cho sáu thiết bị
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-firmware.ps1
 # Hoặc chỉ build một thiết bị:
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-firmware.ps1 -Devices dev-hp01
@@ -142,7 +152,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-firmware.ps1 -
 
 Mỗi lần build thành công phải có `.pio/build/esp32dev/firmware.bin` và `firmware.elf` trong **chính thư mục device**. Mở từng `firmware/dev-hp01` … `dev-hp06` bằng **File → Open Folder** trong các cửa sổ VS Code riêng; chỉ khởi động Wokwi sau khi build báo SUCCESS. Đường dẫn trong `wokwi.toml` tương đối với thư mục workspace đó. Không chép binary của thiết bị này sang thiết bị khác vì mã thiết bị và credential được biên dịch từ `config.h` riêng.
 
-**Build không khởi động thiết bị và không phát MQTT.** Sau khi build, tại từng cửa sổ VS Code nhấn F1 → **Wokwi: Start Simulator**. Kiểm tra một thiết bị trước: khi Wi-Fi/MQTT kết nối và thời gian NTP đồng bộ, Serial Monitor sẽ in JSON và Node-RED sẽ nhận `hospital/HP/devices/dev-hp01/telemetry`. Sau đó khởi động năm thiết bị còn lại. Giữ tab simulator hiển thị để tránh mô phỏng bị tạm dừng. Dùng **Start Simulator** thông thường; chế độ **Start Simulator and Wait for Debugger** chờ debugger trước khi chạy chương trình.
+**Build không khởi động thiết bị và không phát MQTT.** Sau khi build, tại từng cửa sổ VS Code nhấn F1 → **Wokwi: Start Simulator**. Kiểm tra một thiết bị trước: khi Wi-Fi/MQTT kết nối và giờ máy chủ đồng bộ qua TIME_SYNC_URL, Serial Monitor sẽ in JSON và Node-RED sẽ nhận `hospital/HP/devices/dev-hp01/telemetry`. Sau đó khởi động năm thiết bị còn lại. Giữ tab simulator hiển thị để tránh mô phỏng bị tạm dừng. Dùng **Start Simulator** thông thường; chế độ **Start Simulator and Wait for Debugger** chờ debugger trước khi chạy chương trình.
 
 Nếu gặp `UnknownPlatform` thì xử lý cài đặt PlatformIO trước, không sửa đường dẫn Wokwi để né lỗi. Trường hợp kiểm tra ngày 10/10/2026: package `C:\Users\khang\.platformio\platforms\espressif32@6.9.0` có metadata `.piopm` nhưng thiếu `platform.json`; đã giữ gói thiếu file trong `.platformio/recovery` và cài lại đúng `platformio/espressif32@6.9.0`. Lỗi Wokwi `firmware binary ... not found` là hậu quả của việc chưa tạo được binary. Nên để một lượt cài dependency/build hoàn tất trước khi build ở cửa sổ tiếp theo.
 
@@ -181,12 +191,17 @@ Chi tiết kiến trúc, giới hạn, nguồn tham chiếu: [docs/architecture.
 
 ```text
 server/       API, MQTT, schema SQLite/PostgreSQL, rule và workflow
-public/       Dashboard HTML/CSS/JS và SVG charts, không cần build frontend
+public/       Dashboard HTML cũ cho demo local độc lập
 simulator/    Nhiều thiết bị MQTT độc lập, nhận config + lệnh và trả ACK
 firmware/     Template và sáu project ESP32/Wokwi
 infra/
   node-red/
     flows.json   MQTT → HTTP ingestion, ACK, trạng thái thiết bị
+    dashboard/   Vue UI, CSS, SVG cho FlowFuse Dashboard
+    dashboard-flow.json  Bản export sáu trang ui-page + ui-template
+    build-dashboard.cjs  Sinh các node dashboard từ nguồn Vue/CSS/SVG
+    api-proxy.cjs  Phiên đăng nhập và API cùng origin với FlowFuse
+    Dockerfile   Image Node-RED có FlowFuse Dashboard 1.33.0
     settings.js  Cấu hình runtime/editor Node-RED
     prepare.cjs  Nạp flow và MQTT credential khi container khởi động
 scripts/      Khởi động Windows, sinh Wokwi, ACL, thử tải

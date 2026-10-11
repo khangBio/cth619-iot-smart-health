@@ -1,0 +1,8 @@
+{
+  "name": "smart-health-flowfuse",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@flowfuse/node-red-dashboard": "1.33.0"
+  }
+}

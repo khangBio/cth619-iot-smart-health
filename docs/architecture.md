@@ -4,7 +4,7 @@
 
 Nguyên mẫu học phần dùng bệnh nhân giả lập. Mặc định 6 giường; `DEVICE_COUNT=20` tạo một khoa 20 giường. Mỗi giường có một ESP32 cố định, DS18B20, MPU6050, RGB LED và nút gọi. Mạch, SpO₂, nhịp thở, huyết áp và cân nặng là dữ liệu sinh bởi firmware. Biến trở chỉ điều khiển kịch bản SpO₂ thấp, không được gọi là máy đo SpO₂.
 
-Hai chế độ dùng cùng domain service, payload và dashboard:
+Hai chế độ dùng cùng domain service và payload; Docker dùng FlowFuse Dashboard, demo local giữ giao diện HTML độc lập:
 
 ```mermaid
 flowchart LR
@@ -13,8 +13,8 @@ flowchart LR
   N -->|HTTP + token| P[Node.js IoT platform\nValidation + assignment + rules]
   P --> D[(PostgreSQL)]
   D --> P
-  P -->|REST polling 3s| U[VitalCare dashboard]
-  U -->|Receive / at bed / care| P
+  P -->|REST qua /health-api, polling 3s| U[FlowFuse Dashboard\nui-page + ui-template Vue]
+  U -->|Phiên người dùng / workflow| P
   P -->|MQTT command QoS1| M
   M --> L[RGB LED đúng giường]
   L -->|ACK QoS1| M
@@ -31,11 +31,11 @@ Chế độ nhanh thay Mosquitto bằng Aedes trong tiến trình, Node-RED bằ
 | Platform | Node-RED + `server/mqtt.js`, `server/index.js` | Tích hợp giao thức, quản lý thiết bị, API |
 | Data | `server/db.js`, PostgreSQL / SQLite | Schema, chỉ mục, trạng thái bền vững, transaction |
 | Processing | `server/service.js` | Validation, mapping theo thời gian, sustain/recovery, workflow |
-| Application | `public/` | Dashboard tiếng Việt, đồ thị SVG, phiếu in, CSV |
+| Application | `infra/node-red/dashboard/` | FlowFuse Dashboard, component Vue tiếng Việt, đồ thị SVG, phiếu in, CSV; `public/` cho demo local cũ |
 | Action | Command outbox + RGB LED | ID, expiry, assignment, retry, ACK kiểm tra chéo |
 | Integration | EMR outbox + FHIR transaction Bundle | Xác nhận, retry độc lập, PUT idempotent |
 
-Dashboard tùy chỉnh thay FlowFuse để bám phiếu chức năng sống. Node-RED đảm nhiệm tích hợp; rule và nghiệp vụ nằm ở backend để kiểm thử và giao dịch nguyên tử. Đây là điều chỉnh so với công nghệ đề xuất trong tài liệu, không khẳng định toàn bộ rule nằm trong Flow. Nhóm vẫn cần bổ sung minh chứng ít nhất hai technology component đã nghiên cứu trong bài tập nhóm trước.
+Dashboard Docker dùng FlowFuse Dashboard 2.0 phiên bản 1.33.0. Sáu trang `ui-page` chứa các `ui-template` Vue; đồ thị SVG và phiếu được dựng trong component. Node-RED đảm nhiệm tích hợp và phục vụ giao diện; rule và nghiệp vụ nằm ở backend để kiểm thử và giao dịch nguyên tử. Proxy `/health-api` chuyển cookie phiên riêng từng trình duyệt; không gửi dữ liệu bệnh nhân qua socket broadcast hoặc state dùng chung của FlowFuse. Xem [flowfuse-dashboard.md](flowfuse-dashboard.md) để nạp lại giao diện và sao lưu flow. Nhóm vẫn cần bổ sung minh chứng ít nhất hai technology component đã nghiên cứu trong bài tập nhóm trước.
 
 ## Bốn góc nhìn IIAF
 
