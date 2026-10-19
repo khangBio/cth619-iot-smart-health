@@ -1,4 +1,6 @@
 - chạy giả lập trên nhiều máy #
 - Lưu trữ EMR
 - data telemetry
-- tính giá trị trung bình sinh hiệu
+- tính giá trị trung bình sinh hiệu mỗi phút/mỗi giờ trong ngày
+- test lại chức năng cảnh báo/lưu trữ EMR
+- 
